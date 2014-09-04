@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 // define astronaut schema
 var VitalSchema = new Schema({
 	slug : { type: String, lowercase: true, required: true, unique: true },
-	height : String,
-	weight : String,
-	bmi: String,
-	bpm: String,
-	temp: String,
+	height : Number,
+	weight : Number,
+	bmi: Number,
+	bpm: Number,
+	temp: Number,
     lastupdated : { type: Date, default: Date.now },
 });
 

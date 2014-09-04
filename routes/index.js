@@ -55,11 +55,11 @@ exports.vitals = function(req, res) {
 	var bmi = 20;
 
 	var myVital = new vitalModel({
-		height: req.query.height,
-		weight: req.query.weight,
+		height: parseFloat(req.query.height),
+		weight: parseFloat(req.query.weight),
 		bmi: bmi,
-		bpm: req.query.bpm,
-		temp: req.query.temp,
+		bpm: parseFloat(req.query.bpm),
+		temp: parseFloat(req.query.temp),
 		slug : formatted// Remove all non-word chars (fotmatted)
 	});
 
