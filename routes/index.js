@@ -85,7 +85,7 @@ exports.allVitals = function(req, res) {
 		// prepare data for JSON
 		var jsonData = {
 			status : 'OK',
-			sms : allVitals
+			vitals : allVitals
 		}
 		res.json(jsonData);
 	});
