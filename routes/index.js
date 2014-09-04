@@ -52,11 +52,15 @@ exports.vitals = function(req, res) {
 	console.log(req.query);
 
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
-	var bmi = 20;
+	var h = parseFloat(req.query.height);
+	var w = parseFloat(req.query.weight);
+	var bmi = w / (h*h);
+
+	// console.log(bmi);
 
 	var myVital = new vitalModel({
-		height: parseFloat(req.query.height),
-		weight: parseFloat(req.query.weight),
+		height: h,
+		weight: w,
 		bmi: bmi,
 		bpm: parseFloat(req.query.bpm),
 		temp: parseFloat(req.query.temp),
