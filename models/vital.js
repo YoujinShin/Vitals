@@ -6,7 +6,7 @@ var VitalSchema = new Schema({
 	slug : { type: String, lowercase: true, required: true, unique: true },
 	height : String,
 	weight : String,
-	// bmi: String,
+	bmi: String,
 	bpm: String,
 	temp: String,
     lastupdated : { type: Date, default: Date.now },

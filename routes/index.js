@@ -8,7 +8,7 @@
 var request = require('request'); // library to make requests to remote urls
 
 var moment = require("moment"); // date manipulation library
-var astronautModel = require("../models/astronaut.js"); //db model
+// var astronautModel = require("../models/astronaut.js"); //db model
 var vitalModel = require("../models/vital.js");
 
 
@@ -52,10 +52,12 @@ exports.vitals = function(req, res) {
 	console.log(req.query);
 
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
+	var bmi = 20;
 
 	var myVital = new vitalModel({
 		height: req.query.height,
 		weight: req.query.weight,
+		bmi: bmi,
 		bpm: req.query.bpm,
 		temp: req.query.temp,
 		slug : formatted// Remove all non-word chars (fotmatted)
