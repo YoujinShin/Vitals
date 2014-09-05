@@ -17,19 +17,14 @@
     <script>
       var socket = io();
 
-      socket.emit('chat message', {{height}}); 
+      var myVital = {
+          height: {{height}},
+          weight: {{weight}},
+          bpm: {{bpm}},
+          temp: {{temp}}
+      }
 
-      // $('form').submit(function(){
-      // 	// send data to socket
-      //   socket.emit('chat message', $('#m').val()); 
-      //   $('#m').val('');
-      //   return false;
-      // });
-
-      // socket.on('chat message', function(msg){
-      // 	// get data from socket (broadcasting)
-      //   $('#messages').append($('<li>').text(msg));
-      // });
+      socket.emit('chat message', JSON.stringify(myVital)); 
     </script>
   </body>
 </html>

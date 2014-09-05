@@ -4,9 +4,8 @@
     <title>Vitals</title>
   </head>
 
-
   <body>
-    <h1>height data</h1>
+    <h1>vital data</h1>
     <ul id="messages"></ul>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -15,18 +14,26 @@
     <script>
       var socket = io();
 
-      // $('form').submit(function(){
-      // 	// send data to socket
-      //   socket.emit('chat message', $('#m').val()); 
-      //   $('#m').val('');
-      //   return false;
-      // });
-
       socket.on('chat message', function(msg){
+        console.log('//////////////////');
+        var data = JSON.parse(msg)
+
+        // var myVital = {
+        //     height: data.height,
+        //     weight: data.weight,
+        //     bpm: data.bpm,
+        //     temp: data.temp
+        // }
+
+        var print = 'height: '+data.height+"cm"+", "+
+                    'weight: '+data.weight+"kg"+", "+
+                    'bpm: '+data.bpm+", "+
+                    'temp: '+data.temp;
+
       	// get data from socket (broadcasting)
-        $('#messages').append($('<li>').text(msg));
+        $('#messages').append($('<li>').text(print));
+        // $('#messages').append($('<li>').text(data.height));
       });
     </script>
   </body>
 </html>
-
