@@ -4,13 +4,16 @@
  */
 
 var express = require('express');
-var http = require('http');
+// var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
 
-
 // the ExpressJS App
 var app = express();
+
+// Socket io
+// var io = require('socket.io')(http);
+
 
 // configuration of port, templates (/views), static files (/public)
 // and other expressjs settings for the web server.
@@ -24,7 +27,7 @@ app.configure(function(){
 
   // setup template engine - we're using Hogan-Express
   app.set('view engine', 'html');
-  app.set('layout','layout');
+  // app.set('layout','layout');
   app.engine('html', require('hogan-express')); // https://github.com/vol4ok/hogan-express
 
   app.use(express.favicon());
@@ -76,6 +79,15 @@ app.get('/', routes.index);
 app.get('/vitals', routes.vitals); //  ./vitals?height=20&weight=20&bpm=20&temp=20
 app.get('/allVitals', routes.allVitals);
 
+app.get('/test', function(req, res) {
+  var data = req.query.data;
+  console.log(data);
+
+  // var socket = io();
+  io.emit('chat message', data);
+});
+// app.get('/test', routes.test);
+
 // app.get('/vitals/:val_h', routes.vitals);
 
 // //new astronaut routes
@@ -105,20 +117,29 @@ app.get('/allVitals', routes.allVitals);
 
 // app.post('/set_session', routes.set_session);
 
-// create NodeJS HTTP server using 'app'
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+
+// Socket io
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+
+    // emil data from server to user
+    io.emit('chat message', msg);
+  });
 });
 
+// create NodeJS HTTP server using 'app'
+// http.createServer(app).listen(app.get('port'), function(){
+//   console.log("Express server listening on port " + app.get('port'));
+// });
 
-
-
-
-
-
-
-
-
+http.listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
 
 
 

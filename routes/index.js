@@ -18,7 +18,8 @@ var vitalModel = require("../models/vital.js");
 exports.index = function(req, res) {
 	
 	console.log("main page requested");
-	res.render('main.html');
+	// res.render('main.html');
+	res.render('main2.html');
 
 	// // query for all astronauts
 	// // .find will accept 3 arguments
@@ -72,9 +73,18 @@ exports.vitals = function(req, res) {
 			console.error("Error on saving new data");
 			console.error(err);
 		} else {
+
+			var templateData = {
+				height: h,
+				weight: w,
+				bmi: bmi,
+				bpm: parseFloat(req.query.bpm),
+				temp: parseFloat(req.query.temp)
+			}
+
 			console.log("Created a new data");
 			console.log(myVital);
-			// res.render('index.html', templateData);
+			res.render('myVital.html', templateData);
 		}
 	});
 }
@@ -94,6 +104,14 @@ exports.allVitals = function(req, res) {
 		res.json(jsonData);
 	});
 }
+
+// exports.test = function(req, res) {
+// 	var data = req.query.data;
+// 	console.log(data);
+
+// 	var socket = io();
+// 	socket.emit('chat message', data);
+// }
 
 // exports.data_all = function(req, res) {
 

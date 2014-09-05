@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Vitals</title>
+  </head>
+
+
+  <body>
+    <h1>height data</h1>
+    <ul id="messages"></ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<!--  -->
+    <script>
+      var socket = io();
+
+      // $('form').submit(function(){
+      // 	// send data to socket
+      //   socket.emit('chat message', $('#m').val()); 
+      //   $('#m').val('');
+      //   return false;
+      // });
+
+      socket.on('chat message', function(msg){
+      	// get data from socket (broadcasting)
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+  </body>
+</html>
+
