@@ -104,6 +104,10 @@
       var bpm = 0;
       var temp = 0;
 
+      var color_red = "#fe7700";
+      var color_yellow = "#fffe2e";
+      var color_blue = "#2e99fd";
+
       socket.on('chat message', function(msg){
         var data = JSON.parse(msg);
 
@@ -117,6 +121,7 @@
         bpm = data.bpm;
         temp = data.temp;
 
+
       	// get data from socket (broadcasting)
         // $('#messages').append($('<li>').text(print));
         // $('#messages').text(print);
@@ -127,7 +132,6 @@
         var bmi_p = 100* bmi / 50; // for kg & cm
 
         $( "#bmi" ).css( "width", bmi_p+"%" );
-        $( "#bmi" ).css( "background-color", "rgba(255,0,0,1)");
         $( "#bmi" ).text( bmi );
 
         $( "#bpm" ).css( "width", bpm+"%" );
@@ -136,7 +140,28 @@
         $( "#temp" ).css( "width", temp+"%" );
         $( "#temp" ).text( temp );
 
+
+        // BMI   
+        if( bmi <= 18.5) {  $( "#bmi" ).css( "background-color", color_blue ); }
+        else if( bmi>18.5 && bmi<=25 ) {  $( "#bmi" ).css( "background-color", color_blue ); }
+        else if( bmi>25 && bmi<30 ) { $( "#bmi" ).css( "background-color", color_red ); }
+        else if( bmi>=30 ) { $( "#bmi" ).css( "background-color", color_red ); }
+
+        // BPM 
+        if( bpm>70 && bpm<=73 ) { $( "#bpm" ).css( "background-color", color_blue ); }
+        else if( bpm>73 || bpm<=70) { $( "#bpm" ).css( "background-color", color_red ); }
+
+        // TEMP (F: 95-107)   http://en.wikipedia.org/wiki/Human_body_temperature
+        if( temp>97.7 && temp<=99.5 ) { $( "#temp" ).css( "background-color", color_blue ); }
+        else if( temp>99.5 || temp<=97.7 ) { $( "#temp" ).css( "background-color", color_red ); }
+
+        // TEMP (C: 35-41.5)    http://en.wikipedia.org/wiki/Human_body_temperature
+        // if( temp>36.5 && temp<=37.5 ) { $( "#temp" ).css( "background-color", color_blue ); }
+        // else if( temp>37.5 || temp<=36.5 ) { $( "#temp" ).css( "background-color", color_red ); }
+
+
       });
+        
     </script>
   </body>
 </html>
