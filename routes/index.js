@@ -53,17 +53,21 @@ exports.vitals = function(req, res) {
 	console.log(req.query);
 
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
-	var h = parseFloat(req.query.height);
-	var w = parseFloat(req.query.weight);
+	var h = 0.393701*parseFloat(req.query.height); // cm to inch
+	var w = 2.20462*parseFloat(req.query.weight); // kg to lb
 	// var bmi = w / (h*h); // for kg * cm
 	var bmi = w*703 / (h*h); // for lb * inch
+
+	var bpm = parseFloat(req.query.bpm);
+	var temp = 1.8*parseFloat(req.query.temp) + 32; //celsius to fahrenheit
+
 
 	var myVital = new vitalModel({
 		height: h,
 		weight: w,
 		bmi: bmi,
-		bpm: parseFloat(req.query.bpm),
-		temp: parseFloat(req.query.temp),
+		bpm: bpm,
+		temp: temp,
 		slug : formatted// Remove all non-word chars (fotmatted)
 	});
 
@@ -77,8 +81,8 @@ exports.vitals = function(req, res) {
 				height: h,
 				weight: w,
 				bmi: bmi,
-				bpm: parseFloat(req.query.bpm),
-				temp: parseFloat(req.query.temp)
+				bpm: bpm,
+				temp: temp
 			}
 
 			console.log("Created a new data");
