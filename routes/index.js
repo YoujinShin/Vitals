@@ -53,7 +53,8 @@ exports.vitals = function(req, res) {
 	console.log(req.query);
 
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
-	var h = 0.393701*parseFloat(req.query.height); // cm to inch
+	//var h = 0.393701*parseFloat(req.query.height); // cm to inch
+	var h = 68; // inch
 	var w = 2.20462*parseFloat(req.query.weight); // kg to lb
 	// var bmi = w / (h*h); // for kg * cm
 	var bmi = w*703 / (h*h); // for lb * inch
