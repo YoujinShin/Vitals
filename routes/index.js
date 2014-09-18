@@ -60,17 +60,21 @@ exports.vitals = function(req, res) {
 	var bmi = w*703 / (h*h); // for lb * inch
 
 	var bpm = parseFloat(req.query.bpm);
-	//var temp = 1.8*parseFloat(req.query.temp) + 32; //celsius to fahrenheit
-	var temp2 = (92.8-89.7)*Math.random()+89.7// body temp(89.7 - 92.8) 
+	// var temp = 20;
+	var temp = 1.8*parseFloat(req.query.temp) + 32; //celsius to fahrenheit
+	// var temp = (92.8-89.7)*Math.random()+89.7;// body temp(89.7 - 92.8) 
 
 	var myVital = new vitalModel({
 		height: h,
 		weight: w,
 		bmi: bmi,
 		bpm: bpm,
-		temp: temp2,
+		temp: temp,
 		slug : formatted// Remove all non-word chars (fotmatted)
 	});
+
+	console.log("myVital?");
+
 
 	myVital.save(function(err){
 		if(err) {
@@ -83,7 +87,7 @@ exports.vitals = function(req, res) {
 				weight: w,
 				bmi: bmi,
 				bpm: bpm,
-				temp: temp2
+				temp: temp
 			}
 
 			console.log("Created a new data");
